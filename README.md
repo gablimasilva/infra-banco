@@ -119,6 +119,24 @@ A API executa automaticamente:
 dbContext.Database.Migrate();
 ```
 
+====================================================================
+OBSERVAÇÃO DE ARQUITETURA
+====================================================================
+
+O PostgreSQL será provisionado dentro da VPC criada pelo
+repositório infra-cluster.
+
+O módulo de banco consumirá:
+
+- VPC ID
+- Private Subnets
+- Security Group
+
+exportados pelo cluster.
+
+Dessa forma o banco ficará privado e acessível
+somente a partir do EKS.
+
 durante sua inicialização.
 
 Portanto este repositório provisiona apenas a infraestrutura do banco de dados.

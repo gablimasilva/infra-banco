@@ -1,28 +1,3 @@
-resource "aws_security_group" "postgres" {
-
-  name = "vehicle-sales-postgres"
-
-  ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-
-    cidr_blocks = [
-      "0.0.0.0/0"
-    ]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-
-    cidr_blocks = [
-      "0.0.0.0/0"
-    ]
-  }
-}
-
 resource "aws_db_instance" "postgres" {
 
   identifier = "vehicle-sales-db"
@@ -43,7 +18,7 @@ resource "aws_db_instance" "postgres" {
 
   password = var.db_password
 
-  publicly_accessible = true
+  publicly_accessible = false
 
   skip_final_snapshot = true
 

@@ -20,6 +20,8 @@ resource "aws_db_instance" "postgres" {
 
   publicly_accessible = false
 
+  db_subnet_group_name = aws_db_subnet_group.postgres.name
+
   skip_final_snapshot = true
 
   vpc_security_group_ids = [
@@ -41,4 +43,45 @@ resource "aws_secretsmanager_secret_version" "database" {
     password = var.db_password
     database = var.db_name
   })
+}
+
+resource "aws_db_subnet_group" "postgres" {
+
+  name = "vehicle-sales-db-subnet-group"
+
+  subnet_ids = [
+    var.subnet_a_id,
+    var.subnet_b_id
+  ]
+}
+
+resource "aws_security_group" "postgres" {
+
+  name   = "vehicle-sales-rds-sg"
+
+  vpc_id = var.vpc_id
+
+  ingress {
+
+    from_port = 5432
+    to_port   = 5432
+
+    protocol = "tcp"
+
+    security_groups = [
+      var.cluster_security_group_id
+    ]
+  }
+
+  egress {
+
+    from_port = 0
+    to_port   = 0
+
+    protocol = "-1"
+
+    cidr_blocks = [
+      "0.0.0.0/0"
+    ]
+  }
 }

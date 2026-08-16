@@ -10,4 +10,4 @@ subnet_a_id = "subnet-0e4f5dfcf5e3944d0"
 
 subnet_b_id = "subnet-07d29c518c06e97e2"
 
-cluster_security_group_id = "sg-00be3b116abcc9713"
+cluster_security_group_id = "sg-0410f5fd64a83b1c9"
